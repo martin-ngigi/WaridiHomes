@@ -1,6 +1,6 @@
 package com.example.waridihomes.presentation.di
 
-import com.example.waridihomes.domain.AuthUseCase
+import com.example.waridihomes.domain.usecase.AuthUseCase
 import com.example.waridihomes.domain.repository.WaridiHomesRepository
 import dagger.Module
 import dagger.Provides
@@ -14,7 +14,7 @@ class UseCaseModule {
 
     @Provides
     @Singleton
-    fun providesAuthUseCase(waridiHomesRepository: WaridiHomesRepository): AuthUseCase{
+    fun providesAuthUseCase(waridiHomesRepository: WaridiHomesRepository): AuthUseCase {
         return AuthUseCase(waridiHomesRepository = waridiHomesRepository)
     }
 }

@@ -20,4 +20,10 @@ object Utils {
         return ValidationResult(true)
 
     }
+
+    fun validateLoginRequest(email: String, password: String): ValidationResult{
+        if (email.isEmpty()) return  ValidationResult(false, "Email is Empty")
+        if (password.isEmpty()) return  ValidationResult(false, "Password is Empty")
+        return ValidationResult(true)
+    }
 }
