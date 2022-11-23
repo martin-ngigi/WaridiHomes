@@ -1,4 +1,4 @@
-package com.example.waridihomes.fragments
+package com.example.waridihomes.presentation.ui.fragments
 
 import androidx.fragment.app.Fragment
 import com.example.waridihomes.R
