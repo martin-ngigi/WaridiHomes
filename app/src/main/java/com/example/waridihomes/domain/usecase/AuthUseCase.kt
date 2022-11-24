@@ -55,6 +55,11 @@ class AuthUseCase @Inject constructor(
                     "LastName:\n" +
                     "${response.data?.user?.lastName.toString()}")
 
+            /**
+             * MUST ALWAYS BE INCLUDED HERE ;-)
+             */
+            emit(response)
+
         }
         catch (e: HttpException){
             Log.e(TAG, "AuthUseCase loginUser Error:${e.localizedMessage!!}")
