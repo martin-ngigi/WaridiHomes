@@ -1,6 +1,7 @@
 package com.example.waridihomes.presentation.ui.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import com.example.waridihomes.R
 import com.example.waridihomes.data.model.modelrequest.LoginRequest
 import com.example.waridihomes.data.util.Utils.validateLoginRequest
 import com.example.waridihomes.databinding.FragmentLoginBinding
+import com.example.waridihomes.presentation.ui.activities.HomeActivity
 import com.example.waridihomes.presentation.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,7 +81,11 @@ class LoginFragment : Fragment() {
                         loginBinding.loginButton.isEnabled = true
                         //println("DATA SENT: $loginRequest")
                         //navigate to home fragment
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+
+                        //findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        Intent(requireContext(), HomeActivity::class.java).also {
+                            requireContext().startActivity(it)
+                        }
                         viewModel.navigateToPage()
                     }
                     else if( successful == false){
