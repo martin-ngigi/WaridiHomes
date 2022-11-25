@@ -1,12 +1,16 @@
 package com.example.waridihomes.presentation.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.waridihomes.R
 import com.example.waridihomes.data.model.modelrequest.UserRequest
 import com.example.waridihomes.data.util.Utils
@@ -38,6 +42,9 @@ class SignUpFragment : Fragment() {
 
         signUpBinding = FragmentSignUpBinding.bind(view)
 
+        //listener for usertype
+        val userT = setOnCheckedChangeListener()
+
         /**
         register_signin.setOnClickListener {
             //navigate to the login fragment
@@ -57,6 +64,14 @@ class SignUpFragment : Fragment() {
             val email = signUpBinding.email.editableText.toString()
             val phone = signUpBinding.phone.editableText.toString()
             val password = signUpBinding.registerPassword.editableText.toString()
+
+            val checkUserTypeButtonId = signUpBinding.rgUser.checkedRadioButtonId
+            val userTypeRadioGroup = view.findViewById<RadioButton>(checkUserTypeButtonId)
+            val userType = userTypeRadioGroup.text.toString()
+
+            Log.i("USERTYPE", "onViewCreated: $userType")
+            //Snackbar.make(view, "you selected: "+userType, Snackbar.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), ""+userType, Toast.LENGTH_SHORT).show()
 
             val result = validateRegisterRequest(fname, lname,email, phone, password)
 
@@ -86,7 +101,7 @@ class SignUpFragment : Fragment() {
                                             lastName = lname,
                                             password=password,
                                             phone=phone,
-                                            userType = "C",
+                                            userType = userType.get(0).toString(),
                                             username = email)
 
                 viewModel.registerUser(userRequest = userRequest)
@@ -121,5 +136,15 @@ class SignUpFragment : Fragment() {
 
 
     }
+
+    private fun setOnCheckedChangeListener() {
+        signUpBinding.rgUser.setOnCheckedChangeListener { group, checkedId ->
+//            val text = "You selected: " + if (R.id.rbAgent == checkedId) "Agent" else  "female"
+            val text = "You selected: " +(if (R.id.rbAgent == checkedId) "\nAgent" else "")+ //if true.. answer is agent else its empty
+                                        (if (R.id.rbClient == checkedId) "\nClient" else "")
+            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
 }
